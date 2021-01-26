@@ -23,14 +23,23 @@ public class Programa_Principal_Exception {
 		Date entrada = sdf.parse(ler.next());
 		System.out.println();
 		Date saida = sdf.parse(ler.next());
-	
+		
 		if(!saida.after(entrada)) {
 			System.out.println("Data Invalida!! A data da saida esta antes da data da entrada");
 		}else {
 			Reserva reserva = new Reserva(numero, entrada, saida);
 			System.out.println("Reserva: "+ reserva);
 		}
-
+		
+//		
+//		System.out.println();
+//		System.out.println("Entre com os novos dados de reserva ");
+//		System.out.print("Data de Chegada: ");
+//		entrada = sdf.parse(ler.next());
+//		System.out.print("Data de Saida:  ");	
+//		saida = sdf.parse(ler.next());
+//			
+		
 	ler.close();	
 	}
 
