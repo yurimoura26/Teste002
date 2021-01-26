@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import modelException.DomainException;
+
 public class Reserva {
 
 	private Integer nQuarto;
@@ -13,7 +15,10 @@ public class Reserva {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Reserva(Integer nQuarto, Date entrada, Date saida) {
-		super();
+		if (!saida.after(entrada)) {
+			throw new DomainException( "Data Invalida!! A data da saida esta antes da data da entrada");
+		}
+		
 		this.nQuarto = nQuarto;
 		this.entrada = entrada;
 		this.saida = saida;
@@ -40,18 +45,17 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(diferi, TimeUnit.MILLISECONDS);
 	}
 
-	public String novaData(Date entrada, Date saida) {
+	public void novaData(Date entrada, Date saida) {
 
 		Date atual = new Date();
 		if (entrada.before(atual) || (saida.before(atual))) {
-			return "Erro: Datas das Reservas informadas devem ser datas futuras";
+			throw new DomainException( "Erro: Datas das Reservas informadas devem ser datas futuras");
 		}
 		if (!saida.after(entrada)) {
-			return "Data Invalida!! A data da saida esta antes da data da entrada";
+			throw new DomainException( "Data Invalida!! A data da saida esta antes da data da entrada");
 		}
 		this.entrada = entrada;
 		this.saida = saida;
-		return null;
 	}
 
 	@Override

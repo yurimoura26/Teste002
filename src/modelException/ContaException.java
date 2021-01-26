@@ -1,5 +1,6 @@
 package modelException;
 
-public class ContaException {
+public class ContaException extends RuntimeException {
+	
 
 }

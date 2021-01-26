@@ -1,50 +1,57 @@
 package Application;
 
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
 import Entidades.Reserva;
+import modelException.DomainException;
 
 public class Programa_Principal_Exception {
 	
-	public static void main(String[] args)  throws ParseException{
+	public static void main(String[] args) {
 	
 		Scanner ler = new Scanner(System.in);
 		Locale.setDefault(Locale.US);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		System.out.print("Numero do quarto: ");
-		int numero = ler.nextInt();
-		System.out.println();
-		Date entrada = sdf.parse(ler.next());
-		System.out.println();
-		Date saida = sdf.parse(ler.next());
+		try {
+			System.out.print("Numero do quarto: ");
+			int numero = ler.nextInt();
+			System.out.println("Data de Chegada: ");
+			Date entrada = sdf.parse(ler.next());
+			System.out.println("Data de Saida:  ");
+			Date saida = sdf.parse(ler.next());
+			
 		
-		if(!saida.after(entrada)) {
-			System.out.println("Data Invalida!! A data da saida esta antes da data da entrada");
-		}else {
 			Reserva reserva = new Reserva(numero, entrada, saida);
 			System.out.println("Reserva: "+ reserva);
 		
-
 			System.out.println();
 			System.out.println("Entre com os novos dados de reserva ");
 			System.out.print("Data de Chegada: ");
 			entrada = sdf.parse(ler.next());
 			System.out.print("Data de Saida:  ");	
 			saida = sdf.parse(ler.next());
-				
-			String error = reserva.novaData(entrada, saida);
-			if (error != null) {
-				System.out.println("______");
-			}else {
-				System.out.println("Reserva: "+ reserva);
-			}
+			
+			reserva.novaData(entrada, saida);
+			System.out.println("Reserva: "+ reserva);
 		}
+		catch(ParseException erro) {
+			System.out.println("Data invalida! ");
+		}
+		catch(DomainException erro) {
+			System.out.println("Erro na reserva : "+erro.getMessage());
+		}
+		catch(RuntimeException erro) {
+			System.out.println("Erro Inesperado no Cadastro da reserva ");
+		}
+		
+		
+		
 		
 	ler.close();	
 	}
