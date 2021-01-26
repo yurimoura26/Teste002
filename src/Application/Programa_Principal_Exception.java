@@ -29,16 +29,22 @@ public class Programa_Principal_Exception {
 		}else {
 			Reserva reserva = new Reserva(numero, entrada, saida);
 			System.out.println("Reserva: "+ reserva);
-		}
 		
-//		
-//		System.out.println();
-//		System.out.println("Entre com os novos dados de reserva ");
-//		System.out.print("Data de Chegada: ");
-//		entrada = sdf.parse(ler.next());
-//		System.out.print("Data de Saida:  ");	
-//		saida = sdf.parse(ler.next());
-//			
+
+			System.out.println();
+			System.out.println("Entre com os novos dados de reserva ");
+			System.out.print("Data de Chegada: ");
+			entrada = sdf.parse(ler.next());
+			System.out.print("Data de Saida:  ");	
+			saida = sdf.parse(ler.next());
+				
+			String error = reserva.novaData(entrada, saida);
+			if (error != null) {
+				System.out.println("______");
+			}else {
+				System.out.println("Reserva: "+ reserva);
+			}
+		}
 		
 	ler.close();	
 	}
